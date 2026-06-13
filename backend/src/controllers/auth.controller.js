@@ -51,7 +51,7 @@ export const registerUser = async (req, res) => {
 export const loginUser = async (req, res) => {
   const { email, username, password } = req.body;
 
-  if (!email || !username || !password) {
+  if (!email || !password) {
     return res.status(400).json({
       message: "all fields are required",
     });
@@ -59,7 +59,7 @@ export const loginUser = async (req, res) => {
 
   const user = await userModel
     .findOne({
-      $or: [{ email }, { username }],
+      $or: [{ email }],
     })
     .select("+password");
 
@@ -105,6 +105,8 @@ export const getMe = async (req, res) => {
   }
 
   return res.status(200).json({
+    message: "user fetched successfully",
+    success: !!user,
     user,
   });
 };
@@ -122,7 +124,6 @@ export const logoutUser = async (req, res) => {
   //   token,
   // });
   await redis.set(token, Date.now().toString(), "EX", 24 * 60 * 60);
-
 
   res.clearCookie("token");
 

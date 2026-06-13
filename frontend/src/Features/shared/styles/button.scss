@@ -1,0 +1,17 @@
+.btn-primary{
+    padding-block: 0.5rem;
+    font-weight: 600;
+    color: white;
+    background-color: rgb(74, 150, 221);
+    border: none;
+    border-radius: 0.4rem;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+}
+
+.btn-primary:active{
+    transform: scale(0.98);
+    transition: all 0.1s ease-in-out;
+    background-color: rgb(52, 104, 153);
+}

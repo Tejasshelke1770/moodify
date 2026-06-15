@@ -1,7 +1,8 @@
 import express from "express";
-import authRouter from "./routes/auth.routes.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
+import authRouter from "./routes/auth.routes.js";
+import songRouter from "./routes/song.routes.js";
 const app = express();
 
 app.get("/", (req, res) => {
@@ -18,5 +19,6 @@ app.use(
 );
 
 app.use("/api/auth", authRouter);
+app.use("/api/songs", songRouter);
 
 export default app;

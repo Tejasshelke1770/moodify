@@ -58,7 +58,7 @@ export const detectFace = (
   }
 
   const results = faceLandmarker.detectForVideo(video, performance.now());
-
+  let expression;
   if (results.faceBlendshapes?.length > 0) {
     const blendshapes = results.faceBlendshapes[0].categories;
 
@@ -74,14 +74,15 @@ export const detectFace = (
 
     if (smileLeft > 0.5 && smileRight > 0.5) {
       setExpression("😊 Happy");
+      expression = "happy";
     } else if (jawOpen > 0.6) {
-      setExpression("😮 Surprised");
-    } else if (blinkLeft > 0.8 && blinkRight > 0.8) {
-      setExpression("😉 Blinking");
+      setExpression("😮 Surprise");
+      expression = "surprise";
     } else {
       setExpression("😐 Neutral");
+      expression = "sad";
     }
   }
 
-  // animationFrameRef.current = requestAnimationFrame(detectFace);
+  return expression;
 };

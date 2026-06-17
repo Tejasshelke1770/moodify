@@ -3,7 +3,7 @@ import { Navigate, useNavigate } from "react-router";
 
 const Protected = ({ children }) => {
   const { user, loading } = useAuth();
-  console.log(user, loading);
+  // console.log(user, loading);
 
   if (loading) {
     return <h1>Loading...</h1>;

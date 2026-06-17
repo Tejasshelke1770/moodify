@@ -48,7 +48,6 @@ export const getSong = async (req, res) => {
   const song = await songModel.findOne({ mood });
 
   res.status(200).json({
-    message: "song fetched successfully",
     success: !!song,
     song,
   });

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { initialize, detectFace } from "../utils/utils";
 
-export default function FaceExpression() {
+export default function FaceExpression({ getSong }) {
   const videoRef = useRef(null);
   const faceLandmarkerRef = useRef(null);
   const animationFrameRef = useRef(null);
@@ -9,7 +9,7 @@ export default function FaceExpression() {
   const [expression, setExpression] = useState("Loading...");
 
   useEffect(() => {
-    // initialize(streamRef, videoRef, faceLandmarkerRef, setExpression);
+    initialize(streamRef, videoRef, faceLandmarkerRef, setExpression);
 
     return () => {
       if (animationFrameRef.current) {
@@ -23,6 +23,16 @@ export default function FaceExpression() {
       faceLandmarkerRef.current?.close();
     };
   }, []);
+
+  const handleClick = async () => {
+    const expressionDetected = detectFace(
+      videoRef,
+      faceLandmarkerRef,
+      animationFrameRef,
+      setExpression,
+    );
+    getSong(expressionDetected);
+  };
 
   return (
     <div
@@ -47,16 +57,7 @@ export default function FaceExpression() {
       />
 
       <h2>Expression: {expression}</h2>
-      <button
-        onClick={() =>
-          detectFace(
-            videoRef,
-            faceLandmarkerRef,
-            animationFrameRef,
-            setExpression,
-          )
-        }
-      >
+      <button className="button btn-primary" onClick={() => handleClick()}>
         Detect Face Expression
       </button>
     </div>
